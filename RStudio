@@ -1,0 +1,16 @@
+
+library(dplyr)
+library(reshape2)
+library(ggplot2)
+
+data <- read.csv("comparedata.csv", header = TRUE)
+data
+df = data.frame(data)
+
+
+
+ggplot(df, aes(x = Rep, y = Gall)) + 
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE, lwd = .5, col = "black")+
+  facet_wrap(~ Individual, scales = "fixed")
+
