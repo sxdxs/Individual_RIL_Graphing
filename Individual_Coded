@@ -1,0 +1,20 @@
+
+
+library(dplyr)
+library(reshape2)
+library(ggplot2)
+
+data <- read.csv("comparedata.csv", header = TRUE)
+data
+df = data.frame(data)
+
+hline_df <- data.frame(name = c('Jack','Peking'), y = c(.070389, .752723), color =c('Blue','Green'))
+
+sp <- ggplot(df, aes(x = Rep, y = Gall)) + 
+  geom_point() +
+  geom_hline(data = hline_df, aes(yintercept=y, linetype = name, color = color)) +
+  
+  geom_smooth(method = "lm", se = FALSE, lwd = .5, col = "black")+
+  facet_wrap(~ Individual, scales = "fixed") 
+
+sp = sp + scale_colour_identity(name = hline_df$color) 
